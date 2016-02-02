@@ -1,5 +1,28 @@
 Messages = new Mongo.Collection("messages");
 
+Router.route('/messages/:_id', function() {
+  this.render('message', {
+    data: function () {
+      return Messages.findOne({_id: this.params._id});
+    }
+  });
+  this.layout('layout');
+},
+{
+  name: 'message.show'
+}
+);
+
+Router.route('/', function() {
+  this.render('GuestBook');
+  this.layout('layout');
+});
+
+Router.route('/about', function () {
+    this.render('about'); //render about template
+    this.layout('layout');    //set the main layout template
+});
+
 
 if (Meteor.isClient) {
   Meteor.subscribe("messages");

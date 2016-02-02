@@ -1,12 +1,12 @@
-<head>
-  <title>GuestBook</title>
-</head>
+<template name="layout">
+  <body>
+    <h1>Welcome to Drey's GuestBook</h1>
 
-<body>
-  <h1>Welcome to Drey's GuestBook</h1>
+    {{> yield}}
+  </body>
+</template>
 
-  {{> GuestBook}}
-</body>
+
 
   <template name="GuestBook">
     <div class='col-xs-3'>
@@ -25,7 +25,16 @@
       <button type="submit" class="btn btn-primary">Post Message</button>
     </form>
      {{#each messages}}
-      <p><strong>{{ name }}</strong>: {{ message }} - {{ createdOn }}</p>
+      <p><a href="{{pathFor route='message.show'}}"></a> <strong>{{ name }}</strong>: {{ message }} - {{ createdOn }}</p>
       {{/each}}
   </div>
+  </template>
+
+
+  <template name="about">
+    <p>This is an app created for IT 328 in Meteor</p>
+  </template>
+
+  <template name="message">
+    <p>{{name}}: {{message}}</p>
   </template>
