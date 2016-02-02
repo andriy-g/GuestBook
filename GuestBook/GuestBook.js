@@ -21,15 +21,23 @@ if (Meteor.isClient) {
         var nameBox = $(event.target).find('input[name=GuestName]');
         var nameText = nameBox.val();
 
-        Messages.insert(
-          {
-            name: nameText,
-            message: messageText,
-            createdOn: Date.now()
-          }
-        );
-
-        alert("Name is " + nameText + ", msg is " + messageText);
+        if(nameText.length > 0 &&
+            messageText.length > 0) {
+              Messages.insert(
+              {
+                name: nameText,
+                message: messageText,
+                createdOn: Date.now()
+              });
+              nameBox.val("");
+              messageBox.val("");
+        }
+        else {
+          //alert (name and message are both required.)
+          console.log(messageBox);
+          messageBox.classList.add("has-warning");
+        }
+        //alert("Name is " + nameText + ", msg is " + messageText);
       }
     }
   );
