@@ -1,8 +1,25 @@
 <template name="layout">
   <body>
-    <h1>Welcome to Drey's GuestBook</h1>
-
-    {{> yield}}
+    <div class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Welcome to Drey's GuestBook</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {{> loginButtons}} <!-- here -->
+      </ul>
+    </div>
+    </div>
+    {{> GuestBook}}
   </body>
 </template>
 
@@ -11,22 +28,27 @@
   <template name="GuestBook">
     <div class='col-xs-3'>
     <form>
-      <div  class="form-group">
+      <!-- <div  class="form-group">
         <label for="GuestName">Name</label>
         <input type="text"  class="form-control"  name="GuestName">
-    </div>
+    </div> -->
 
     <div class="form-group">
       <label for="GuestBookMessage">Message</label>
 
       <textarea name="GuestBookMessage"  class="form-control" rows="3" cols="20"></textarea>
     </div>
-
+    <!-- Can only sumbit message when user is logged in -->
+    {{#if currentUser}}
       <button type="submit" class="btn btn-primary">Post Message</button>
+      {{/if}}
     </form>
-     {{#each messages}}
-      <p><a href="{{pathFor route='message.show'}}"><strong>{{ name }}</strong>: {{ message }} - {{ createdOn }}</a></p>
-      {{/each}}
+        <!-- Can only see messages while user is logged in -->
+        {{#if currentUser}}
+          {{#each messages}}
+          <p><a href="{{pathFor route='message.show'}}"><strong>{{ name }}</strong>: {{ message }} - {{ createdOn }}</a></p>
+          {{/each}}
+        {{/if}}
   </div>
   </template>
 
